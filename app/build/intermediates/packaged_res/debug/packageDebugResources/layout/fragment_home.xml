@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".HomeFragment">
+
+    <!-- Streak Display -->
+    <LinearLayout
+        android:id="@+id/streak_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end"
+        android:gravity="center_vertical" 
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/streak_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0" 
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/holo_green_dark" 
+            android:layout_marginEnd="4dp"/>
+
+        <ImageView
+            android:id="@+id/streak_flame_icon"
+            android:layout_width="24dp" 
+            android:layout_height="24dp"
+            android:src="@drawable/ic_custom_green_flame" 
+            android:contentDescription="Streak Flame"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/stats_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stats"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Placeholder for Carbon Emission Graph/Chart -->
+    <FrameLayout
+        android:id="@+id/graph_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#e0e0e0" />
+        <!--  You can replace background with a proper chart library later -->
+
+    <Button
+        android:id="@+id/button_electricity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Electricity"
+        android:layout_marginTop="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/button_transport"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Transport"
+        android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/button_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Other"
+        android:layout_marginTop="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:gravity="center"/>
+
+</LinearLayout>

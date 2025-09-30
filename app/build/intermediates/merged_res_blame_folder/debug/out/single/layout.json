@@ -1,0 +1,70 @@
+[
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_tips.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_tips.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_check_green.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_check_green.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/fragment_leaderboard.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/fragment_leaderboard.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_camera.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_camera.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_leaderboard.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_leaderboard.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/fragment_tips.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/fragment_tips.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_check_green2.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_check_green2.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_home.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_home.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/fragment_camera.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/fragment_camera.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_ic_profile.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_ic_profile.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_sign_up.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_login.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/dialog_forgot_password.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/dialog_forgot_password.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_edit_profile.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_edit_profile.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/fragment_home.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/activity_main.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-mergeDebugResources-43:/layout/fragment_profile.xml",
+        "source": "com.example.carbontracer.app-main-46:/layout/fragment_profile.xml"
+    }
+]

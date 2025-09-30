@@ -1,0 +1,230 @@
+[
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_slide_in_left.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/slide_in_left.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_slide_in_right.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/slide_in_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_button_gradient_bg.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\button_gradient_bg.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/layout_activity_login.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_fragment_camera.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\fragment_camera.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_fragment_leaderboard.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\fragment_leaderboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_email_outline.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_email_outline.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_tips.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_tips.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_edit_profile.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_edit_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_flame_placeholder.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_flame_placeholder.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_slide_out_right.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/slide_out_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_dialog_forgot_password.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\dialog_forgot_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_camera.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_camera.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\xml_filepaths.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\xml\\filepaths.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\menu_edit_profile_menu.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\menu\\edit_profile_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_camera.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_check_green.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_check_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_leaderboard.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_leaderboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_custom_green_flame.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_custom_green_flame.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_profile.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_profile.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_slide_out_left.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/slide_out_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_gradient_background.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\gradient_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_leaderboard.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_leaderboard.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_fade_in.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_sign_up.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/layout_activity_sign_up.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/layout/activity_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_check_green.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_check_green.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_check_green2.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_check_green2.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_lock_outline.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_lock_outline.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_fragment_tips.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\fragment_tips.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_slide_in_from_bottom.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/slide_in_from_bottom.xml"
+    },
+    {
+        "merged": "com.example.carbontracer.app-debug-44:/anim_fade_out.xml.flat",
+        "source": "com.example.carbontracer.app-main-46:/anim/fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\drawable_ic_profile.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\drawable\\ic_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_home.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_ic_tips.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_ic_tips.xml"
+    },
+    {
+        "merged": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-debug-44:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\svhir\\.gradle\\daemon\\8.13\\com.example.carbontracer.app-main-46:\\layout\\activity_login.xml"
+    }
+]
