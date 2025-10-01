@@ -1,6 +1,8 @@
 package com.example.carbontracer
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri // Import for Uri
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.fragment.app.Fragment
@@ -23,6 +25,7 @@ class ProfileFragment : Fragment() {
     private lateinit var tvProfileName: TextView
     private lateinit var ivUserProfileHeader: ImageView
     private lateinit var tvViewAchievements: TextView
+    private lateinit var tvSendFeedback: TextView // Declare tvSendFeedback
 
     private var lastClickTime: Long = 0
 
@@ -41,6 +44,7 @@ class ProfileFragment : Fragment() {
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val tvEditProfile = view.findViewById<TextView>(R.id.tvEditProfile)
         tvViewAchievements = view.findViewById(R.id.tvViewAchievements)
+        tvSendFeedback = view.findViewById(R.id.tvSendFeedback) // Initialize tvSendFeedback
 
         btnLogout.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
@@ -73,7 +77,20 @@ class ProfileFragment : Fragment() {
             lastClickTime = SystemClock.elapsedRealtime()
 
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AchievementsFragment())
+                .replace(R.id.fragment_container, AchievementsFragment()) // Assuming your container ID is fragment_container
+                .addToBackStack(null)
+                .commit()
+        }
+
+        tvSendFeedback.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+
+            // Navigate to FeedbackFragment
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, FeedbackFragment()) // Assuming your container ID is fragment_container
                 .addToBackStack(null)
                 .commit()
         }

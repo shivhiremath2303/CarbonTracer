@@ -13,4 +13,9 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <!-- Custom TextAppearance for BottomNavigationView items -->
+    <style name="BottomNavigationView.TextAppearance" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">10sp</item> <!-- Adjust size as needed -->
+    </style>
+
 </resources>

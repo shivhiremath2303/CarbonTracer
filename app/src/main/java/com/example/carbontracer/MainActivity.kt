@@ -4,24 +4,36 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+// Removed: import android.util.Log
+// Removed: import android.view.MenuItem
 import androidx.fragment.app.Fragment
+// Removed: import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
+// Removed: import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+// Explicitly import your fragment classes
+import com.example.carbontracer.HomeFragment
+import com.example.carbontracer.TipsFragment
+import com.example.carbontracer.CameraFragment
+import com.example.carbontracer.LeaderboardFragment
+import com.example.carbontracer.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private var lastNavigationClickTime: Long = 0
 
-    // Declare instances of all fragments
     private val homeFragment = HomeFragment()
     private val tipsFragment = TipsFragment()
     private val cameraFragment = CameraFragment()
     private val leaderboardFragment = LeaderboardFragment()
     private val profileFragment = ProfileFragment()
-    private var activeFragment: Fragment = homeFragment // Default active fragment
+    private var activeFragment: Fragment = homeFragment
+
+    // Removed: private var navProfileImageView: ShapeableImageView? = null
+    // Removed: private val TAG = "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +42,8 @@ class MainActivity : AppCompatActivity() {
         if (auth.currentUser == null) {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
-            // Apply slide_in_right for LoginActivity and slide_out_left for MainActivity
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            finish() // MainActivity finishes, using the specified slide_out_left
+            finish()
             return
         }
 
@@ -40,18 +51,20 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Initialize fragments only once
+        // Removed: bottomNavigation.post { ... } block for profile image
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
                 add(R.id.fragment_container, profileFragment, "5").hide(profileFragment)
                 add(R.id.fragment_container, leaderboardFragment, "4").hide(leaderboardFragment)
                 add(R.id.fragment_container, cameraFragment, "3").hide(cameraFragment)
                 add(R.id.fragment_container, tipsFragment, "2").hide(tipsFragment)
-                add(R.id.fragment_container, homeFragment, "1") // Show homeFragment by default
+                add(R.id.fragment_container, homeFragment, "1")
             }.commitAllowingStateLoss()
             activeFragment = homeFragment
         } else {
-            activeFragment = supportFragmentManager.findFragmentByTag("1") ?: homeFragment
+            val savedActiveFragmentTag = savedInstanceState.getString("activeFragmentTag", "1")
+            activeFragment = supportFragmentManager.findFragmentByTag(savedActiveFragmentTag) ?: homeFragment
         }
 
         bottomNavigation.setOnItemSelectedListener { item ->
@@ -71,8 +84,6 @@ class MainActivity : AppCompatActivity() {
 
             if (targetFragment != null && targetFragment != activeFragment) {
                 supportFragmentManager.beginTransaction()
-                    // If you want fragment transition animations, add them here, e.g.:
-                    // .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
                     .hide(activeFragment)
                     .show(targetFragment)
                     .commitAllowingStateLoss()
@@ -86,30 +97,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // Apply slide_in_left for the previous activity and slide_out_right for MainActivity
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    // Removed: private fun loadProfileImageInNavBar() { ... }
+
+    override fun onResume() {
+        super.onResume()
+        // Removed: Logic related to navProfileImageView and loadProfileImageInNavBar()
     }
 
-    // Example for starting new activities as you mentioned:
-    // fun startOtherActivity() {
-    //     val intent = Intent(this, OtherActivity::class.java) // Replace OtherActivity with your actual class
-    //     startActivity(intent)
-    //     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-    // }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        activeFragment.tag?.let { 
+            outState.putString("activeFragmentTag", it)
+        }
+    }
 
-    // fun startTransportActivity() {
-    //     val intent = Intent(this, TransportActivity::class.java) // Replace TransportActivity with your actual class
-    //     startActivity(intent)
-    //     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-    // }
-
-    // fun startElectricityActivity() {
-    //     val intent = Intent(this, ElectricityActivity::class.java) // Replace ElectricityActivity with your actual class
-    //     startActivity(intent)
-    //     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-    // }
-
-    // loadFragment method is no longer needed (as it was commented out in original)
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 }

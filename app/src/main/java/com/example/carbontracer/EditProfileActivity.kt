@@ -35,6 +35,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
+import com.yalantis.ucrop.UCrop // Added uCrop import
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -79,6 +80,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var requestStoragePermissionLauncher: ActivityResultLauncher<String>
     private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
+    private lateinit var uCropLauncher: ActivityResultLauncher<Intent> // Added uCrop launcher
 
     private var pendingOperations = 0
     private var successfulOperations = 0
@@ -103,7 +105,7 @@ class EditProfileActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance() // Initialize Firestore
 
         setupPermissionsLaunchers()
-        setupImageLaunchers()
+        setupImageLaunchers() // This will now also set up uCropLauncher
 
         loadUserProfile()
         setupDOBField()
@@ -144,21 +146,86 @@ class EditProfileActivity : AppCompatActivity() {
     private fun setupImageLaunchers() {
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                currentPhotoUri?.let {
-                    Glide.with(this).load(it).circleCrop().into(ivProfileImage)
-                    newImageSelectedForUploadUri = it
+                currentPhotoUri?.let { uri ->
+                    Log.d(TAG, "Image captured, URI: $uri. Starting uCrop.")
+                    startUCropActivity(uri) // Call uCrop
+                } ?: run {
+                    Toast.makeText(this, "Failed to get URI for captured image", Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, "currentPhotoUri is null after taking picture.")
                 }
             } else {
                 Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show()
+                Log.d(TAG, "TakePicture contract returned success = false")
             }
         }
+
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             uri?.let {
-                Glide.with(this).load(it).circleCrop().into(ivProfileImage)
-                newImageSelectedForUploadUri = it
+                Log.d(TAG, "Image picked from gallery, URI: $it. Starting uCrop.")
+                startUCropActivity(it) // Call uCrop
+            } ?: run {
+                Log.d(TAG, "pickImageLauncher returned null URI.")
+            }
+        }
+
+        uCropLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
+                val resultUri = UCrop.getOutput(result.data!!)
+                resultUri?.let {
+                    newImageSelectedForUploadUri = it
+                    Glide.with(this@EditProfileActivity)
+                        .load(it)
+                        .circleCrop()
+                        .placeholder(R.drawable.ic_profile)
+                        .error(R.drawable.ic_profile)
+                        .into(ivProfileImage)
+                    Log.d(TAG, "uCrop successful, new URI: $it")
+                } ?: run {
+                    Toast.makeText(this, "Failed to retrieve cropped image", Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, "uCrop resultUri is null")
+                }
+            } else if (result.resultCode == UCrop.RESULT_ERROR) {
+                val cropError = UCrop.getError(result.data!!)
+                Toast.makeText(this, "Image crop failed: ${cropError?.message}", Toast.LENGTH_SHORT).show()
+                Log.e(TAG, "uCrop error", cropError)
+            } else {
+                Log.d(TAG, "uCrop cancelled or failed. Result code: ${result.resultCode}")
             }
         }
     }
+
+    private fun startUCropActivity(sourceUri: Uri) {
+        val destinationFileName = "cropped_image_${System.currentTimeMillis()}.jpg"
+        // Ensure the cache directory exists
+        val cacheDirFile = File(cacheDir, "ucrop_cache")
+        if (!cacheDirFile.exists()) {
+            cacheDirFile.mkdirs()
+        }
+        val destinationUri = Uri.fromFile(File(cacheDirFile, destinationFileName))
+
+
+        val options = UCrop.Options()
+        options.setCircleDimmedLayer(true)
+        options.setShowCropGrid(false)
+        options.setShowCropFrame(false)
+        options.setHideBottomControls(true) 
+        options.setToolbarTitle("Crop Profile Photo")
+        // Example colors (replace with your actual colors from colors.xml if needed)
+        // options.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        // options.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        // options.setActiveControlsWidgetColor(ContextCompat.getColor(this, R.color.colorAccent))
+        // options.setToolbarWidgetColor(ContextCompat.getColor(this, R.color.white))
+
+
+        val ucropIntent = UCrop.of(sourceUri, destinationUri)
+            .withOptions(options)
+            .withAspectRatio(1f, 1f)
+            .withMaxResultSize(400, 400) // Max size for the cropped image
+            .getIntent(this)
+
+        uCropLauncher.launch(ucropIntent)
+    }
+
 
     private fun checkAndRequestCameraPermission() {
         when {
@@ -194,7 +261,8 @@ class EditProfileActivity : AppCompatActivity() {
         try {
             val photoFile = createImageFile()
             val localPhotoUri: Uri = FileProvider.getUriForFile(this, "${applicationContext.packageName}.provider", photoFile)
-            currentPhotoUri = localPhotoUri
+            currentPhotoUri = localPhotoUri // This is the URI for the full-size image
+            // We'll pass this URI to uCrop after capture
             takePictureLauncher.launch(localPhotoUri)
         } catch (ex: IOException) {
             Log.e(TAG, "Error creating image file for camera", ex)
@@ -239,7 +307,6 @@ class EditProfileActivity : AppCompatActivity() {
                     .into(ivProfileImage)
             } ?: ivProfileImage.setImageResource(R.drawable.ic_profile)
 
-            // Load additional details from Firestore
             db.collection("users").document(user.uid).get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
@@ -270,7 +337,6 @@ class EditProfileActivity : AppCompatActivity() {
                         Log.d(TAG, "User profile details loaded from Firestore.")
                     } else {
                         Log.d(TAG, "No profile details found in Firestore.")
-                        // Ensure original fields are empty if no document exists
                         originalDOB = ""; originalHouseBuildingName = ""; originalAreaColony = ""; originalPincode = ""; originalState = ""; originalCity = "";
                     }
                 }
@@ -280,7 +346,7 @@ class EditProfileActivity : AppCompatActivity() {
                     originalDOB = ""; originalHouseBuildingName = ""; originalAreaColony = ""; originalPincode = ""; originalState = ""; originalCity = "";
                 }
                 .addOnCompleteListener {
-                    showLoading(false) // Hide loading indicator after all load attempts
+                    showLoading(false)
                 }
         } ?: run {
             Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show()
@@ -343,9 +409,14 @@ class EditProfileActivity : AppCompatActivity() {
             successfulOperations++
             Log.d(TAG, "$operationType successful.")
             if (operationType == "Profile photo update") {
-                auth.currentUser?.reload()?.addOnCompleteListener { reloadTask ->
+                // The photoUrl in Firebase Auth is updated,
+                // and newImageSelectedForUploadUri is now the cropped one.
+                // We might want to reload the user or just update UI based on newImageSelectedForUploadUri
+                // For simplicity, if saveUserProfile uploads it, Firebase Auth user.photoUrl will be the new one.
+                // Let's ensure loadUserProfile is called to refresh if needed or rely on Glide caching.
+                 auth.currentUser?.reload()?.addOnCompleteListener { reloadTask ->
                     if (reloadTask.isSuccessful) {
-                        loadUserProfile() // Reload the user profile to show the new image
+                         // loadUserProfile() // Consider if this is needed or if UI updates from Glide are enough
                     }
                 }
             }
@@ -359,8 +430,13 @@ class EditProfileActivity : AppCompatActivity() {
             if (failedOperations > 0) {
                 Toast.makeText(this, "Some changes failed. Check logs for details.", Toast.LENGTH_LONG).show()
             } else if (successfulOperations > 0) {
+                // Only finish if there were actual operations to perform.
+                // If only photo was selected but not changed from original, we might not want to show "updated".
+                // However, the current saveUserProfile logic handles "No changes to save."
                 finishActivityWithMessage("Profile updated successfully.")
             }
+            // Resetting newImageSelectedForUploadUri here means if upload fails,
+            // the user has to pick image again. This is reasonable.
             newImageSelectedForUploadUri = null
             pendingOperations = 0
             successfulOperations = 0
@@ -420,9 +496,8 @@ class EditProfileActivity : AppCompatActivity() {
         val newDisplayName = "$firstName $lastName".trim()
         val nameChanged = newDisplayName != originalDisplayName
         val emailChanged = newEmail != originalEmail
-        val photoChanged = newImageSelectedForUploadUri != null
+        val photoChanged = newImageSelectedForUploadUri != null // This URI is now the cropped one
 
-        // Get new detail values
         val dob = etDOB.text.toString().trim()
         val houseBuildingName = etHouseBuildingName.text.toString().trim()
         val areaColony = etAreaColony.text.toString().trim()
@@ -461,7 +536,6 @@ class EditProfileActivity : AppCompatActivity() {
             currentUser.verifyBeforeUpdateEmail(newEmail).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Verification email sent to $newEmail. You will need to re-login after verification.", Toast.LENGTH_LONG).show()
-                    // originalEmail will be updated by Firebase upon successful verification and re-login
                 } else {
                     etEmail.error = task.exception?.message ?: "Failed to update email"
                     etEmail.requestFocus()
@@ -503,6 +577,11 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                     operationCompleted(task.isSuccessful, "Address/DOB details update")
                 }
+        }
+         // If there are no pending operations (e.g., only photo was selected but it was same as original, or some other edge case)
+        // ensure loading is hidden. This check is more robustly handled by operationCompleted now.
+        if (pendingOperations == 0) {
+            showLoading(false)
         }
     }
 

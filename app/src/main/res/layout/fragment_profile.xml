@@ -94,6 +94,22 @@
             android:layout_height="1dp"
             android:background="@color/divider_color"/>
 
+        <TextView
+            android:id="@+id/tvSendFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send Feedback"
+            android:textSize="18sp"
+            android:paddingVertical="12dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?android:attr/selectableItemBackground"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_color"/>
+
     </LinearLayout>
 
     <Button

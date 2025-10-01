@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.application") version "8.13.0"
-    id("org.jetbrains.kotlin.android") version "1.9.22"
-    id("com.google.gms.google-services") // Corrected this line
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -58,6 +58,9 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx")
     implementation("com.google.firebase:firebase-storage-ktx") // Use the KTX version for Kotlin
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // Image Cropper
+    implementation("com.github.yalantis:ucrop:2.2.11-native") // Check for the latest version
 
     // Testing Libraries
     testImplementation(libs.junit)
