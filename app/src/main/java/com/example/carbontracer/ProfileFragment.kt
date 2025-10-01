@@ -2,7 +2,7 @@ package com.example.carbontracer
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock // Import for SystemClock
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,8 +22,9 @@ class ProfileFragment : Fragment() {
     private var currentUser: FirebaseUser? = null
     private lateinit var tvProfileName: TextView
     private lateinit var ivUserProfileHeader: ImageView
+    private lateinit var tvViewAchievements: TextView
 
-    private var lastClickTime: Long = 0 // Variable to store last click time
+    private var lastClickTime: Long = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,10 +40,10 @@ class ProfileFragment : Fragment() {
         ivUserProfileHeader = view.findViewById(R.id.ivUserProfileHeader)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val tvEditProfile = view.findViewById<TextView>(R.id.tvEditProfile)
+        tvViewAchievements = view.findViewById(R.id.tvViewAchievements)
 
         btnLogout.setOnClickListener {
-            // Debounce for logout button as well
-            if (SystemClock.elapsedRealtime() - lastClickTime < 1000){ // 1000ms debounce
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
                 return@setOnClickListener
             }
             lastClickTime = SystemClock.elapsedRealtime()
@@ -56,14 +57,25 @@ class ProfileFragment : Fragment() {
         }
 
         tvEditProfile.setOnClickListener {
-            // Debounce logic: if less than 1 second has passed since last click, ignore
-            if (SystemClock.elapsedRealtime() - lastClickTime < 1000){ // 1000ms = 1 second
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
                 return@setOnClickListener
             }
-            lastClickTime = SystemClock.elapsedRealtime() // Update last click time
+            lastClickTime = SystemClock.elapsedRealtime()
 
             val intent = Intent(activity, EditProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        tvViewAchievements.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, AchievementsFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return view
@@ -72,7 +84,6 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         currentUser = auth.currentUser
-        // loadUserProfileData() // Data will be loaded in onResume initially
     }
 
     override fun onResume() {

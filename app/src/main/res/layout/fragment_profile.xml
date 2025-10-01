@@ -18,17 +18,17 @@
         android:layout_marginBottom="24dp">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivUserProfileHeader" 
-            android:layout_width="96dp" 
+            android:id="@+id/ivUserProfileHeader"
+            android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_profile" 
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent" 
+            android:src="@drawable/ic_profile"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
             android:contentDescription="User Profile Picture"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/tvUserNameHeader" 
+            android:id="@+id/tvUserNameHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User Name"
