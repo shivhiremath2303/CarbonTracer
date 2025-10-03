@@ -25,7 +25,8 @@ class ProfileFragment : Fragment() {
     private lateinit var tvProfileName: TextView
     private lateinit var ivUserProfileHeader: ImageView
     private lateinit var tvViewAchievements: TextView
-    private lateinit var tvSendFeedback: TextView // Declare tvSendFeedback
+    private lateinit var tvSendFeedback: TextView
+    private lateinit var tvAppSettings: TextView
 
     private var lastClickTime: Long = 0
 
@@ -44,7 +45,8 @@ class ProfileFragment : Fragment() {
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
         val tvEditProfile = view.findViewById<TextView>(R.id.tvEditProfile)
         tvViewAchievements = view.findViewById(R.id.tvViewAchievements)
-        tvSendFeedback = view.findViewById(R.id.tvSendFeedback) // Initialize tvSendFeedback
+        tvSendFeedback = view.findViewById(R.id.tvSendFeedback)
+        tvAppSettings = view.findViewById(R.id.tvAppSettings)
 
         btnLogout.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
@@ -76,10 +78,8 @@ class ProfileFragment : Fragment() {
             }
             lastClickTime = SystemClock.elapsedRealtime()
 
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, AchievementsFragment()) // Assuming your container ID is fragment_container
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(activity, BadgesActivity::class.java)
+            startActivity(intent)
         }
 
         tvSendFeedback.setOnClickListener {
@@ -93,6 +93,16 @@ class ProfileFragment : Fragment() {
                 .replace(R.id.fragment_container, FeedbackFragment()) // Assuming your container ID is fragment_container
                 .addToBackStack(null)
                 .commit()
+        }
+
+        tvAppSettings.setOnClickListener {
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+
+            val intent = Intent(activity, SettingsActivity::class.java)
+            startActivity(intent)
         }
 
         return view

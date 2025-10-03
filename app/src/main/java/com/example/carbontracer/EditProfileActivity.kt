@@ -61,6 +61,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var storage: FirebaseStorage
     private lateinit var db: FirebaseFirestore // Added Firestore instance
+    private val badgeManager = BadgeManager()
 
     private val calendar = Calendar.getInstance()
     private var originalEmail: String? = null
@@ -586,6 +587,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun finishActivityWithMessage(message: String) {
+        badgeManager.checkAndAwardProfileBadges()
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         setResult(Activity.RESULT_OK)
         Handler(Looper.getMainLooper()).postDelayed({ finish() }, 1500)

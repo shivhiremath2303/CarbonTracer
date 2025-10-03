@@ -19,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
+    private val badgeManager = BadgeManager()
 
     private lateinit var ivLengthMet: ImageView
     private lateinit var ivUppercaseMet: ImageView
@@ -112,6 +113,7 @@ class SignUpActivity : AppCompatActivity() {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(this) { task ->
                                 if (task.isSuccessful) {
+                                    badgeManager.awardNewcomerBadge()
                                     Toast.makeText(baseContext, "Account created.", Toast.LENGTH_SHORT).show()
                                     // TODO: Save fullName to Firebase Firestore or Realtime Database
                                     val intent = Intent(this, LoginActivity::class.java)

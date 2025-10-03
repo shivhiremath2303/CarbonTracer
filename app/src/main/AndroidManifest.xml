@@ -42,6 +42,24 @@
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".BadgesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ElectricityActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TransportActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationSettingsActivity"
+            android:exported="false" />
 
         <!-- CropImageActivity declaration (from a different library, can be kept or removed if not used) -->
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
