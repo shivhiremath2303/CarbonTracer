@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.fragment.app.Fragment
@@ -11,17 +12,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import android.util.Log
+import android.widget.TextView
+import com.example.carbontracer.model.OcrResponse
+import com.example.carbontracer.network.RetrofitClient
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.ByteArrayOutputStream
 
 class CameraFragment : Fragment() {
 
     private lateinit var buttonTakePhoto: Button
     private lateinit var buttonChooseGallery: Button
-    // Add an ImageView to display the selected or captured image (optional)
-    // private lateinit var imageView: ImageView 
-
+    private lateinit var resultTextView: TextView
     private lateinit var takePictureLauncher: ActivityResultLauncher<Intent>
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
 
@@ -30,7 +39,6 @@ class CameraFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_camera, container, false)
     }
 
@@ -39,21 +47,32 @@ class CameraFragment : Fragment() {
 
         buttonTakePhoto = view.findViewById(R.id.button_take_photo)
         buttonChooseGallery = view.findViewById(R.id.button_choose_gallery)
-        // imageView = view.findViewById(R.id.image_view_placeholder) // Initialize if you added an ImageView
+        resultTextView = view.findViewById(R.id.resultTextView)
 
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imageBitmap = result.data?.extras?.get("data") as? Bitmap
-                // Handle the captured imageBitmap (e.g., display it in an ImageView)
-                // imageView.setImageBitmap(imageBitmap) 
+                val imageBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    result.data?.extras?.getParcelable("data", Bitmap::class.java)
+                } else {
+                    @Suppress("DEPRECATION")
+                    result.data?.extras?.get("data") as? Bitmap
+                }
+
+                if (imageBitmap != null) {
+                    resultTextView.text = getString(R.string.uploading_photo)
+                    uploadBitmap(imageBitmap)
+                }
             }
         }
 
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imageUri: Uri? = result.data?.data
-                // Handle the selected imageUri (e.g., display it in an ImageView)
-                // imageView.setImageURI(imageUri)
+
+                if (imageUri != null) {
+                    resultTextView.text = getString(R.string.uploading_image)
+                    uploadImage(imageUri)
+                }
             }
         }
 
@@ -61,19 +80,85 @@ class CameraFragment : Fragment() {
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             try {
                 takePictureLauncher.launch(takePictureIntent)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Handle exception, e.g., if no camera app is available
             }
         }
 
         buttonChooseGallery.setOnClickListener {
-            val pickImageIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            pickImageIntent.type = "image/*" 
+            val pickImageIntent = Intent(Intent.ACTION_GET_CONTENT)
+            pickImageIntent.type = "image/*"
             try {
                 pickImageLauncher.launch(pickImageIntent)
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Handle exception
             }
         }
+    }
+
+    private fun uploadImage(imageUri: Uri) {
+        try {
+            val contentResolver = requireContext().contentResolver
+            val mimeType = contentResolver.getType(imageUri)
+            val inputStream = contentResolver.openInputStream(imageUri)
+
+            if (inputStream == null) {
+                resultTextView.text = getString(R.string.error_opening_image)
+                return
+            }
+
+            val fileBytes = inputStream.readBytes()
+            inputStream.close()
+            val requestFile = fileBytes.toRequestBody(mimeType?.toMediaTypeOrNull())
+            val body = MultipartBody.Part.createFormData("file", "gallery_image.jpg", requestFile)
+
+            uploadFile(body)
+
+        } catch (e: Exception) {
+            Log.e("UploadError", "File preparation failed: ${e.message}", e)
+            resultTextView.text = getString(R.string.error_file_preparation_failed, e.message)
+        }
+    }
+
+    private fun uploadBitmap(bitmap: Bitmap) {
+        try {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+            val fileBytes = outputStream.toByteArray()
+
+            val requestFile = fileBytes.toRequestBody("image/jpeg".toMediaTypeOrNull())
+            val body = MultipartBody.Part.createFormData("file", "camera_photo.jpg", requestFile)
+
+            uploadFile(body)
+
+        } catch (e: Exception) {
+            Log.e("UploadError", "Bitmap conversion failed: ${e.message}", e)
+            resultTextView.text = getString(R.string.error_bitmap_conversion_failed, e.message)
+        }
+    }
+
+    private fun uploadFile(body: MultipartBody.Part) {
+        Log.d("Upload", "Uploading file...")
+        val api = RetrofitClient.instance
+
+        api.uploadOcrImage(body).enqueue(object : Callback<OcrResponse> {
+
+            override fun onResponse(call: Call<OcrResponse>, response: Response<OcrResponse>) {
+                if (response.isSuccessful) {
+                    val ocrResponse = response.body()
+                    Log.d("API_SUCCESS", "Text: ${ocrResponse?.ocr_result?.text}")
+                    resultTextView.text = getString(R.string.success_ocr, ocrResponse?.ocr_result?.text)
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("API_ERROR", "Response not successful: ${response.code()}")
+                    resultTextView.text = getString(R.string.error_api, response.code(), errorBody)
+                }
+            }
+
+            override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
+                Log.e("API_FAILURE", "Upload failed: ${t.message}", t)
+                resultTextView.text = getString(R.string.network_failure, t.message)
+            }
+        })
     }
 }

@@ -21,4 +21,14 @@
         android:layout_marginTop="10dp"
         android:text="Choose from Gallery" />
 
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_choose_gallery"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Please choose an image to upload."
+        android:textSize="16sp" />
+
 </RelativeLayout>

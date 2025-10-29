@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CarbonTracer</string>
+    <string name="uploading_photo">Uploading photo…</string>
+    <string name="uploading_image">Uploading image…</string>
+    <string name="error_opening_image">Error: Failed to open image</string>
+    <string name="error_file_preparation_failed">Error: File preparation failed: %s</string>
+    <string name="error_bitmap_conversion_failed">Error: Bitmap conversion failed: %s</string>
+    <string name="success_ocr">Success: %s</string>
+    <string name="error_api">Error: %1$d \n %2$s</string>
+    <string name="network_failure">Network Failure: %s</string>
 </resources>

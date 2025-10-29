@@ -64,7 +64,8 @@ class MainActivity : AppCompatActivity() {
             activeFragment = homeFragment
         } else {
             val savedActiveFragmentTag = savedInstanceState.getString("activeFragmentTag", "1")
-            activeFragment = supportFragmentManager.findFragmentByTag(savedActiveFragmentTag) ?: homeFragment
+            activeFragment =
+                supportFragmentManager.findFragmentByTag(savedActiveFragmentTag) ?: homeFragment
         }
 
         bottomNavigation.setOnItemSelectedListener { item ->
@@ -91,12 +92,12 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-        
-        if (savedInstanceState != null) {
-             supportFragmentManager.beginTransaction().show(activeFragment).commitAllowingStateLoss()
-        }
-    }
 
+        if (savedInstanceState != null) {
+            supportFragmentManager.beginTransaction().show(activeFragment).commitAllowingStateLoss()
+        }
+
+    }
     // Removed: private fun loadProfileImageInNavBar() { ... }
 
     override fun onResume() {
