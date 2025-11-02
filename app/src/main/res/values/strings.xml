@@ -8,4 +8,7 @@
     <string name="success_ocr">Success: %s</string>
     <string name="error_api">Error: %1$d \n %2$s</string>
     <string name="network_failure">Network Failure: %s</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="choose_from_gallery">Choose from Gallery</string>
+    <string name="please_choose_image">Please choose an image to upload.</string>
 </resources>
