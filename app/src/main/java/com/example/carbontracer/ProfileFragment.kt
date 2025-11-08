@@ -1,8 +1,6 @@
 package com.example.carbontracer
 
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri // Import for Uri
 import android.os.Bundle
 import android.os.SystemClock
 import androidx.fragment.app.Fragment
@@ -125,7 +123,7 @@ class ProfileFragment : Fragment() {
             if (!displayName.isNullOrEmpty()) {
                 tvProfileName.text = displayName
             } else {
-                tvProfileName.text = "User Name"
+                tvProfileName.text = getString(R.string.user_name)
             }
 
             val storageRef = FirebaseStorage.getInstance().reference
@@ -146,7 +144,7 @@ class ProfileFragment : Fragment() {
             }
 
         } ?: run {
-            tvProfileName.text = "User not logged in"
+            tvProfileName.text = getString(R.string.user_not_logged_in)
             Glide.with(this@ProfileFragment)
                 .load(R.drawable.ic_profile)
                 .circleCrop()

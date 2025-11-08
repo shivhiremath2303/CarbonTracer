@@ -73,4 +73,6 @@
     <color name="button_gradient_end_dark">#005312</color>
     <color name="gradient_start_color">#006E1C</color>
     <color name="gradient_end_color">#004A1B</color>
+    <color name="green">#4CAF50</color>
+    <color name="red">#F44336</color>
 </resources>

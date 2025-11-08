@@ -7,11 +7,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <!-- Storage Permissions -->
-    <!-- For Android 14 (API 34) and above -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
-
-    <!-- For Android 12 (API 32) and below -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 
@@ -31,10 +28,20 @@
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="carbon-tracker-app-5433f.firebaseapp.com"
+                    android:pathPrefix="/__/auth/action"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity
@@ -61,6 +68,9 @@
         <activity
             android:name=".NotificationSettingsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
 
         <!-- UCrop Activity -->
         <activity
@@ -68,7 +78,7 @@
             android:screenOrientation="unspecified"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 
-        <!-- FileProvider for sharing content with other apps (e.g., Camera) -->
+        <!-- FileProvider -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.ActionCodeSettings
 
 class LoginActivity : AppCompatActivity() {
 
@@ -22,20 +23,21 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-        auth = Firebase.auth // Initialize auth immediately
 
-        // Check if user is already logged in
+        // Check for password reset link
+        handleIncomingIntent(intent)
+
+        auth = Firebase.auth // Initialize auth
+
+        // If user is already logged in, go to MainActivity
         if (auth.currentUser != null) {
-            // User is already logged in, redirect to MainActivity
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            finish() // Finish LoginActivity so user can't navigate back to it
-            return   // Prevent further execution of onCreate
+            finish()
+            return
         }
 
-        // If no user is logged in, proceed to set up the login UI
+        // If no user, show the login UI
         setContentView(R.layout.activity_login)
 
         val etEmail = findViewById<EditText>(R.id.etEmail)
@@ -44,14 +46,11 @@ class LoginActivity : AppCompatActivity() {
         val tvSignUpRedirect = findViewById<TextView>(R.id.tvSignUpRedirect)
         val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
         
-        // Load the animation
         val slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in_from_bottom)
-
-        // Stagger the animations
         val viewsToAnimate = listOf(etEmail, etPassword, btnLogin, tvSignUpRedirect, tvForgotPassword)
         viewsToAnimate.forEachIndexed { index, view ->
             view.startAnimation(slideInAnimation.apply { 
-                startOffset = (index * 100).toLong() // 100ms delay between each item
+                startOffset = (index * 100).toLong()
             })
         }
 
@@ -64,13 +63,13 @@ class LoginActivity : AppCompatActivity() {
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(baseContext, "Login successful.", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Clear back stack
-                            startActivity(intent)
+                            val mainIntent = Intent(this, MainActivity::class.java)
+                            mainIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(mainIntent)
                             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
                             finish()
                         } else {
-                            val errorMessage = task.exception?.message ?: "Unknown authentication error."
+                            val errorMessage = task.exception?.message ?: "Unknown error."
                             Log.w(TAG, "signInWithEmail:failure", task.exception)
                             Toast.makeText(baseContext, "Authentication failed: $errorMessage", Toast.LENGTH_LONG).show()
                         }
@@ -81,13 +80,37 @@ class LoginActivity : AppCompatActivity() {
         }
 
         tvSignUpRedirect.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignUpActivity::class.java))
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         tvForgotPassword.setOnClickListener {
             showForgotPasswordDialog()
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIncomingIntent(intent)
+    }
+
+    private fun handleIncomingIntent(intent: Intent?) {
+        val action: String? = intent?.action
+        val data: android.net.Uri? = intent?.data
+
+        if (action == Intent.ACTION_VIEW && data != null) {
+            val oobCode = data.getQueryParameter("oobCode")
+            if (oobCode != null) {
+                auth.checkActionCode(oobCode).addOnSuccessListener {
+                    val resetIntent = Intent(this, ResetPasswordActivity::class.java).apply {
+                        putExtra("actionCode", oobCode)
+                    }
+                    startActivity(resetIntent)
+                    finish()
+                }.addOnFailureListener {
+                    Toast.makeText(this, "Invalid or expired password reset link.", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
@@ -112,10 +135,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sendPasswordResetEmail(email: String) {
-        auth.sendPasswordResetEmail(email)
+        val actionCodeSettings = ActionCodeSettings.newBuilder()
+            .setUrl("https://carbon-tracker-app-5433f.firebaseapp.com") // URL is a placeholder, but required
+            .setHandleCodeInApp(true)
+            .setAndroidPackageName(
+                packageName,
+                true, /* installIfNotAvailable */
+                null /* minimumVersion */
+            )
+            .build()
+
+        auth.sendPasswordResetEmail(email, actionCodeSettings)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "Password reset email sent. Check your inbox.", Toast.LENGTH_LONG).show()
+                    AlertDialog.Builder(this)
+                        .setTitle("Password Reset Email Sent")
+                        .setMessage("Please check your email inbox to reset your password. If you don't see it, be sure to check your spam folder.")
+                        .setPositiveButton("OK") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .show()
                 } else {
                     val errorMessage = task.exception?.message ?: "Failed to send reset email."
                     Log.w(TAG, "sendPasswordResetEmail:failure", task.exception)
