@@ -13,4 +13,5 @@
     <string name="please_choose_image">Please choose an image to upload.</string>
     <string name="user_name">User Name</string>
     <string name="user_not_logged_in">User not logged in</string>
+    <string name="no_text_found">No text found</string>
 </resources>

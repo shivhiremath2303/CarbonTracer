@@ -2,26 +2,21 @@ package com.example.carbontracer.network
 
 import com.example.carbontracer.model.OcrResponse
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 
 interface ApiService {
 
-    /**
-     * This function defines how to call your /ocr/ endpoint
-     */
     @Multipart
-    @POST("ocr/")
+    @POST("parse/image")
     fun uploadOcrImage(
-        @Part file: MultipartBody.Part
+        @Header("apikey") apiKey: String,
+        @Part file: MultipartBody.Part,
+        @Part("language") language: RequestBody? = null,
+        @Part("isOverlayRequired") isOverlayRequired: RequestBody? = null
     ): Call<OcrResponse>
-
-    /**
-     * You would add your /parse_email/ endpoint here too
-     */
-    // @Multipart
-    // @POST("parse_email/")
-    // fun uploadEmailFile(...): Call<YourEmailResponseClass>
 }

@@ -263,7 +263,6 @@ class EditProfileActivity : AppCompatActivity() {
             val photoFile = createImageFile()
             val localPhotoUri: Uri = FileProvider.getUriForFile(this, "${applicationContext.packageName}.provider", photoFile)
             currentPhotoUri = localPhotoUri // This is the URI for the full-size image
-            // We'll pass this URI to uCrop after capture
             takePictureLauncher.launch(localPhotoUri)
         } catch (ex: IOException) {
             Log.e(TAG, "Error creating image file for camera", ex)

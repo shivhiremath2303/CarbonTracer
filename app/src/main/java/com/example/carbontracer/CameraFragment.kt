@@ -140,14 +140,16 @@ class CameraFragment : Fragment() {
     private fun uploadFile(body: MultipartBody.Part) {
         Log.d("Upload", "Uploading file...")
         val api = RetrofitClient.instance
+        val apiKey = "K86469604988957"
 
-        api.uploadOcrImage(body).enqueue(object : Callback<OcrResponse> {
+        api.uploadOcrImage(apiKey, body).enqueue(object : Callback<OcrResponse> {
 
             override fun onResponse(call: Call<OcrResponse>, response: Response<OcrResponse>) {
                 if (response.isSuccessful) {
                     val ocrResponse = response.body()
-                    Log.d("API_SUCCESS", "Text: ${ocrResponse?.ocr_result?.text}")
-                    resultTextView.text = getString(R.string.success_ocr, ocrResponse?.ocr_result?.text)
+                    val parsedText = ocrResponse?.parsedResults?.firstOrNull()?.parsedText ?: "No text found"
+                    Log.d("API_SUCCESS", "Text: $parsedText")
+                    resultTextView.text = getString(R.string.success_ocr, parsedText)
                 } else {
                     val errorBody = response.errorBody()?.string()
                     Log.e("API_ERROR", "Response not successful: ${response.code()}")
