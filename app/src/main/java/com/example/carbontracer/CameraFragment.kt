@@ -1,7 +1,9 @@
 package com.example.carbontracer
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
@@ -12,10 +14,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import android.util.Log
-import android.widget.TextView
 import com.example.carbontracer.model.OcrResponse
 import com.example.carbontracer.network.RetrofitClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -33,6 +36,7 @@ class CameraFragment : Fragment() {
     private lateinit var resultTextView: TextView
     private lateinit var takePictureLauncher: ActivityResultLauncher<Intent>
     private lateinit var pickImageLauncher: ActivityResultLauncher<Intent>
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,6 +53,19 @@ class CameraFragment : Fragment() {
         buttonChooseGallery = view.findViewById(R.id.button_choose_gallery)
         resultTextView = view.findViewById(R.id.resultTextView)
 
+        setupLaunchers()
+
+        buttonTakePhoto.setOnClickListener {
+            checkCameraPermissionAndLaunch()
+        }
+
+        buttonChooseGallery.setOnClickListener {
+            val pickImageIntent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
+            pickImageLauncher.launch(pickImageIntent)
+        }
+    }
+
+    private fun setupLaunchers() {
         takePictureLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 val imageBitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -58,54 +75,49 @@ class CameraFragment : Fragment() {
                     result.data?.extras?.get("data") as? Bitmap
                 }
 
-                if (imageBitmap != null) {
-                    resultTextView.text = getString(R.string.uploading_photo)
-                    uploadBitmap(imageBitmap)
-                }
+                imageBitmap?.let { uploadBitmap(it) }
             }
         }
 
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imageUri: Uri? = result.data?.data
-
-                if (imageUri != null) {
-                    resultTextView.text = getString(R.string.uploading_image)
-                    uploadImage(imageUri)
-                }
+                result.data?.data?.let { uploadImage(it) }
             }
         }
 
-        buttonTakePhoto.setOnClickListener {
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            try {
-                takePictureLauncher.launch(takePictureIntent)
-            } catch (_: Exception) {
-                // Handle exception, e.g., if no camera app is available
+        requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (isGranted) {
+                launchCamera()
+            } else {
+                // Handle permission denial
             }
         }
+    }
 
-        buttonChooseGallery.setOnClickListener {
-            val pickImageIntent = Intent(Intent.ACTION_GET_CONTENT)
-            pickImageIntent.type = "image/*"
-            try {
-                pickImageLauncher.launch(pickImageIntent)
-            } catch (_: Exception) {
-                // Handle exception
+    private fun checkCameraPermissionAndLaunch() {
+        when {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED -> {
+                launchCamera()
+            }
+            else -> {
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             }
         }
+    }
+
+    private fun launchCamera() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        takePictureLauncher.launch(takePictureIntent)
     }
 
     private fun uploadImage(imageUri: Uri) {
         try {
             val contentResolver = requireContext().contentResolver
             val mimeType = contentResolver.getType(imageUri)
-            val inputStream = contentResolver.openInputStream(imageUri)
-
-            if (inputStream == null) {
-                resultTextView.text = getString(R.string.error_opening_image)
-                return
-            }
+            val inputStream = contentResolver.openInputStream(imageUri) ?: return
 
             val fileBytes = inputStream.readBytes()
             inputStream.close()
@@ -116,7 +128,6 @@ class CameraFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("UploadError", "File preparation failed: ${e.message}", e)
-            resultTextView.text = getString(R.string.error_file_preparation_failed, e.message)
         }
     }
 
@@ -133,7 +144,6 @@ class CameraFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("UploadError", "Bitmap conversion failed: ${e.message}", e)
-            resultTextView.text = getString(R.string.error_bitmap_conversion_failed, e.message)
         }
     }
 
@@ -143,22 +153,18 @@ class CameraFragment : Fragment() {
         val apiKey = "K86469604988957"
 
         api.uploadOcrImage(apiKey, body).enqueue(object : Callback<OcrResponse> {
-
             override fun onResponse(call: Call<OcrResponse>, response: Response<OcrResponse>) {
                 if (response.isSuccessful) {
                     val ocrResponse = response.body()
                     val parsedText = ocrResponse?.parsedResults?.firstOrNull()?.parsedText ?: "No text found"
-                    Log.d("API_SUCCESS", "Text: $parsedText")
                     resultTextView.text = getString(R.string.success_ocr, parsedText)
                 } else {
                     val errorBody = response.errorBody()?.string()
-                    Log.e("API_ERROR", "Response not successful: ${response.code()}")
                     resultTextView.text = getString(R.string.error_api, response.code(), errorBody)
                 }
             }
 
             override fun onFailure(call: Call<OcrResponse>, t: Throwable) {
-                Log.e("API_FAILURE", "Upload failed: ${t.message}", t)
                 resultTextView.text = getString(R.string.network_failure, t.message)
             }
         })

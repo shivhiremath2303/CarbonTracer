@@ -62,5 +62,12 @@
 
     <!-- Original colors for specific use if needed -->
     <color name="green">#4CAF50</color>
+    <color name="yellow">#FFEB3B</color>
     <color name="red">#F44336</color>
+
+    <array name="progress_colors">
+        <item>@color/green</item>
+        <item>@color/yellow</item>
+        <item>@color/red</item>
+    </array>
 </resources>
