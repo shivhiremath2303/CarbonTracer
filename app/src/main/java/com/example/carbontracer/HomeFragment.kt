@@ -1,5 +1,6 @@
 package com.example.carbontracer
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import androidx.appcompat.app.AppCompatDelegate
 
 class HomeFragment : Fragment() {
 
+    private lateinit var themeToggle: ImageView
+
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
@@ -32,6 +36,33 @@ class HomeFragment : Fragment() {
         btnTransport.setOnClickListener {
             val intent = Intent(activity, TransportActivity::class.java)
             startActivity(intent)
+        }
+
+        themeToggle = view.findViewById(R.id.theme_toggle)
+        themeToggle.setOnClickListener { toggleTheme() }
+
+        updateThemeToggleIcon()
+    }
+
+    private fun toggleTheme() {
+        val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        val newNightMode = when (currentNightMode) {
+            android.content.res.Configuration.UI_MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
+            android.content.res.Configuration.UI_MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            else -> AppCompatDelegate.MODE_NIGHT_NO
+        }
+        AppCompatDelegate.setDefaultNightMode(newNightMode)
+    }
+
+    private fun updateThemeToggleIcon() {
+        val currentNightMode = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+        when (currentNightMode) {
+            android.content.res.Configuration.UI_MODE_NIGHT_NO -> {
+                themeToggle.isActivated = false // Light mode
+            }
+            android.content.res.Configuration.UI_MODE_NIGHT_YES -> {
+                themeToggle.isActivated = true // Dark mode
+            }
         }
     }
 }

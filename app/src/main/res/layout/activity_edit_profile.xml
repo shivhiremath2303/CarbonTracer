@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/premium_gradient_background"
+    android:background="@drawable/background_gradient"
     tools:context=".EditProfileActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:title="Edit Profile"
-            app:titleTextColor="@color/white"
+            app:titleTextColor="@color/md_theme_light_onPrimaryContainer"
             style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Change Picture"
-                android:textColor="@color/white"
-                app:strokeColor="@color/white"
+                android:textColor="@color/md_theme_light_primary"
+                app:strokeColor="@color/md_theme_light_primary"
                 android:layout_marginBottom="24dp" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -63,14 +63,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="First Name"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -80,14 +80,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Last Name"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -97,14 +97,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Email"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Date of Birth"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etDOB"
@@ -123,7 +123,7 @@
                     android:focusable="false"
                     android:clickable="true"
                     android:inputType="date"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -133,14 +133,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="House No., Building Name"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etHouseBuildingName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPostalAddress"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -150,14 +150,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Area, Colony"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etAreaColony"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPostalAddress"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -167,14 +167,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="City"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -184,14 +184,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="State"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -201,14 +201,14 @@
                 android:layout_height="wrap_content"
                 android:hint="Pincode"
                 android:layout_marginBottom="16dp"
-                android:textColorHint="@color/gray">
+                android:textColorHint="@color/md_theme_light_onSurfaceVariant">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/md_theme_light_onSurface"/>
             </com.google.android.material.textfield.TextInputLayout>
 
              <Button
@@ -217,7 +217,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save Changes"
                 android:background="@drawable/button_gradient_bg"
-                android:textColor="@color/white"
+                android:textColor="@color/md_theme_light_onPrimary"
                 />
 
         </LinearLayout>

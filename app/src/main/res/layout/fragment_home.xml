@@ -7,6 +7,16 @@
     android:padding="16dp"
     tools:context=".HomeFragment">
 
+    <ImageView
+        android:id="@+id/theme_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_theme_toggle"
+        android:layout_gravity="start"
+        android:padding="8dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Toggle Theme" />
+
     <!-- Streak Display -->
     <LinearLayout
         android:id="@+id/streak_layout"
@@ -14,23 +24,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:gravity="center_vertical" 
+        android:gravity="center_vertical"
         android:layout_marginBottom="16dp">
 
         <TextView
             android:id="@+id/streak_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" 
+            android:text="0"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@android:color/holo_green_dark" 
+            android:textColor="?attr/colorOnSurface"
             android:layout_marginEnd="4dp"/>
 
         <ImageView
             android:id="@+id/streak_flame_icon"
-            android:layout_width="24dp" 
+            android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_custom_green_flame" 
+            android:src="@drawable/ic_custom_green_flame"
             android:contentDescription="Streak Flame"/>
     </LinearLayout>
 
@@ -41,6 +51,7 @@
         android:text="Stats"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_gravity="center_horizontal"
+        android:textColor="?attr/colorOnSurface"
         android:layout_marginBottom="8dp"/>
 
     <!-- Placeholder for Carbon Emission Graph/Chart -->
@@ -48,7 +59,7 @@
         android:id="@+id/graph_placeholder"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:background="#e0e0e0" />
+        android:background="?attr/colorSurfaceVariant" />
         <!--  You can replace background with a proper chart library later -->
 
     <Button
