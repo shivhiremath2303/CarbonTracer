@@ -44,6 +44,7 @@ class SettingsActivity : AppCompatActivity() {
                 "Location Settings" -> startActivity(Intent(this, EditProfileActivity::class.java))
                 "Delete Account" -> showDeleteAccountConfirmationDialog()
                 "Notifications" -> startActivity(Intent(this, NotificationSettingsActivity::class.java))
+                "Theme" -> showThemeSelectionDialog()
                 "Units of Measurement" -> showUnitsSelectionDialog()
                 "Send Feedback" -> sendFeedback()
                 "Rate the App" -> rateApp()
@@ -61,12 +62,36 @@ class SettingsActivity : AppCompatActivity() {
             Setting("Location Settings", "Update your city and state for tailored content."),
             Setting("Delete Account", "Permanently delete your account and data."),
             Setting("Notifications", "Manage push notifications and alerts."),
+            Setting("Theme", "Choose between Light, Dark, or System Default."),
             Setting("Units of Measurement", "Switch between metric and imperial units."),
             Setting("About CarbonTracer", "Our mission, and what we are all about."),
             Setting("Send Feedback", "Report bugs or suggest new features."),
             Setting("Rate the App", "Leave a review on the Google Play Store."),
             Setting("App Version", "Version 1.0.0") // Example version
         )
+    }
+
+    private fun showThemeSelectionDialog() {
+        val themes = arrayOf("Light", "Dark", "System Default")
+        val currentNightMode = AppCompatDelegate.getDefaultNightMode()
+        val checkedItem = when (currentNightMode) {
+            AppCompatDelegate.MODE_NIGHT_NO -> 0
+            AppCompatDelegate.MODE_NIGHT_YES -> 1
+            else -> 2
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Theme")
+            .setSingleChoiceItems(themes, checkedItem) { dialog, which ->
+                val mode = when (which) {
+                    0 -> AppCompatDelegate.MODE_NIGHT_NO
+                    1 -> AppCompatDelegate.MODE_NIGHT_YES
+                    else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                }
+                AppCompatDelegate.setDefaultNightMode(mode)
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showUnitsSelectionDialog() {

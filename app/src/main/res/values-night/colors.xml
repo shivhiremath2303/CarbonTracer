@@ -28,7 +28,7 @@
     <color name="md_theme_dark_background">#1A1C19</color>
     <color name="md_theme_dark_onBackground">#E2E3DD</color>
     <color name="md_theme_dark_surface">#1A1C19</color>
-    <color name="md_theme_dark_onSurface">#E2E3DD</color>
+    <color name="md_theme_dark_onSurface">#FFFFFF</color>
     <color name="md_theme_dark_surfaceVariant">#424940</color>
     <color name="md_theme_dark_onSurfaceVariant">#C2C9BE</color>
     <color name="md_theme_dark_outline">#8C9388</color>
