@@ -25,6 +25,8 @@ class ProfileFragment : Fragment() {
     private lateinit var tvViewAchievements: TextView
     private lateinit var tvSendFeedback: TextView
     private lateinit var tvAppSettings: TextView
+    private lateinit var tvHomeAppliances: TextView
+    private lateinit var tvVehicleInfo: TextView
 
     private var lastClickTime: Long = 0
 
@@ -45,6 +47,8 @@ class ProfileFragment : Fragment() {
         tvViewAchievements = view.findViewById(R.id.tvViewAchievements)
         tvSendFeedback = view.findViewById(R.id.tvSendFeedback)
         tvAppSettings = view.findViewById(R.id.tvAppSettings)
+        tvHomeAppliances = view.findViewById(R.id.tvHomeAppliances)
+        tvVehicleInfo = view.findViewById(R.id.tvVehicleInfo)
 
         btnLogout.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastClickTime < 1000){
@@ -100,6 +104,23 @@ class ProfileFragment : Fragment() {
             lastClickTime = SystemClock.elapsedRealtime()
 
             val intent = Intent(activity, SettingsActivity::class.java)
+            startActivity(intent)
+        }
+
+        tvHomeAppliances.setOnClickListener {
+            val intent = Intent(activity, HomeAppliancesActivity::class.java)
+            startActivity(intent)
+        }
+
+        tvVehicleInfo.setOnClickListener {
+            // Add click debouncing like your other buttons
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+
+            // Start the VehicleInfoActivity
+            val intent = Intent(activity, VehicleInfoActivity::class.java)
             startActivity(intent)
         }
 

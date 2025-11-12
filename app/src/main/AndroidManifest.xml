@@ -71,6 +71,12 @@
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
+        <activity
+            android:name=".HomeAppliancesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VehicleInfoActivity"
+            android:exported="false" />
 
         <!-- UCrop Activity -->
         <activity

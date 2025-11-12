@@ -1,13 +1,14 @@
 package com.example.carbontracer.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 
-@Entity(tableName = "appliances")
+import com.google.firebase.firestore.DocumentId
+
 data class Appliance(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val name: String,
-    val model: String,
-    val powerConsumption: Double // in Watts
+    @DocumentId
+    val id: String = "",
+    val userId: String = "",
+    val applianceName: String = "",
+    val applianceCount: Int = 1,
+    val wattageUsed: Int = 0, // From your internal map
+    val dailyHoursUsed: Double = 0.0 // From user
 )

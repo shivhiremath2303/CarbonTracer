@@ -1,17 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CarbonTracer</string>
-    <string name="uploading_photo">Uploading photo…</string>
-    <string name="uploading_image">Uploading image…</string>
-    <string name="error_opening_image">Error: Failed to open image</string>
-    <string name="error_file_preparation_failed">Error: File preparation failed: %s</string>
-    <string name="error_bitmap_conversion_failed">Error: Bitmap conversion failed: %s</string>
-    <string name="success_ocr">Success: %s</string>
-    <string name="error_api">Error: %1$d \n %2$s</string>
-    <string name="network_failure">Network Failure: %s</string>
+
+    <!-- Camera & Upload Strings -->
+    <string name="uploading_photo">Uploading photo...</string>
+    <string name="uploading_image">Uploading image...</string>
+    <string name="error_opening_image">Error opening image file.</string>
+    <string name="error_file_preparation_failed">Error preparing file: %s</string>
+    <string name="error_bitmap_conversion_failed">Error converting image: %s</string>
+    <string name="success_ocr">Text found: %s</string>
+    <string name="error_api">API error %d: %s</string>
+    <string name="network_failure">Network failure: %s</string>
+    <string name="user_name">User Name</string>
+    <string name="user_not_logged_in">Not logged in</string>
+
     <string name="take_photo">Take Photo</string>
     <string name="choose_from_gallery">Choose from Gallery</string>
-    <string name="please_choose_image">Please choose an image to upload.</string>
-    <string name="user_name">User Name</string>
-    <string name="user_not_logged_in">User not logged in</string>
-    <string name="no_text_found">No text found</string>
+    <string name="please_choose_image">Please choose an image</string>
+
+    <string-array name="usage_frequency">
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Rarely</item>
+    </string-array>
+
+    <string-array name="vehicle_types">
+        <item>Car</item>
+        <item>Motorcycle</item>
+        <item>Scooter</item>
+    </string-array>
+
+    <string-array name="fuel_types">
+        <item>Petrol</item>
+        <item>Diesel</item>
+        <item>Electric</item>
+        <item>CNG</item>
+    </string-array>
+
+    <string-array name="efficiency_units">
+        <item>km/L</item>
+        <item>km/kWh</item>
+        <item>km/kg</item>
+    </string-array>
 </resources>
