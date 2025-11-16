@@ -77,12 +77,8 @@
         <activity
             android:name=".VehiclesActivity"
             android:exported="false" />
-
         <activity
-            android:name=".AppliancesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ElectricityActivity"
+            android:name=".PredictionActivity"
             android:exported="false" />
 
         <!-- UCrop Activity -->

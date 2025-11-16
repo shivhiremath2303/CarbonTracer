@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddApplianceActivity">
+
+    <EditText
+        android:id="@+id/edit_text_appliance_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Appliance Name (e.g., TV)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_text_wattage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Wattage (e.g., 150)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_appliance_name"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_appliance_name"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_appliance_name" />
+
+    <EditText
+        android:id="@+id/edit_text_daily_hours"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Daily Hours Used (e.g., 4.5)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_wattage"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_wattage"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_wattage" />
+
+    <Button
+        android:id="@+id/button_save_appliance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Save Appliance"
+        app:layout_constraintEnd_toEndOf="@+id/edit_text_daily_hours"
+        app:layout_constraintStart_toStartOf="@+id/edit_text_daily_hours"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_daily_hours" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
