@@ -13,6 +13,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.ktx.toObjects
+import com.example.carbontracer.model.Appliance
 // Explicitly import your fragment classes
 import com.example.carbontracer.HomeFragment
 import com.example.carbontracer.TipsFragment
@@ -31,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var leaderboardFragment: LeaderboardFragment
     private lateinit var profileFragment: ProfileFragment
     private lateinit var activeFragment: Fragment
+
 
     // Removed: private var navProfileImageView: ShapeableImageView? = null
     // Removed: private val TAG = "MainActivity"

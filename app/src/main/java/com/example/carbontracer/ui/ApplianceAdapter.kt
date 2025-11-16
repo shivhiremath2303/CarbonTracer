@@ -16,15 +16,28 @@ class ApplianceAdapter(private val appliances: List<Appliance>) : RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ApplianceViewHolder, position: Int) {
-        val appliance = appliances[position]
-        holder.tvApplianceName.text = appliance.name
-        holder.tvApplianceModel.text = appliance.model
-    }
+        val appliance = appliances[position] // Make sure this is applianceList
 
+        // Call the bind function you just created
+        holder.bind(appliance)
+    }
     override fun getItemCount() = appliances.size
 
     class ApplianceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvApplianceName: TextView = itemView.findViewById(R.id.tvApplianceName)
-        val tvApplianceModel: TextView = itemView.findViewById(R.id.tvApplianceModel)
+
+        // 1. Correct the IDs to match your item_appliance.xml
+        private val tvName: TextView = itemView.findViewById(R.id.tvApplianceName)
+        private val tvDetails: TextView = itemView.findViewById(R.id.tvApplianceDetails) // <-- This was tvApplianceModel
+
+        // 2. Add the bind function to fix the build errors
+        fun bind(appliance: Appliance) {
+
+            // This uses the correct properties from Appliance.kt
+            val name = "${appliance.applianceName} (x${appliance.applianceCount})"
+            val details = "${appliance.dailyHoursUsed} hours/day (${appliance.wattageUsed}W)"
+
+            tvName.text = name
+            tvDetails.text = details
+        }
     }
 }

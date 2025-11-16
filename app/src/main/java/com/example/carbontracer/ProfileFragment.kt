@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseUser
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
+import com.example.carbontracer.AppliancesActivity
 
 class ProfileFragment : Fragment() {
 
@@ -108,7 +109,14 @@ class ProfileFragment : Fragment() {
         }
 
         tvHomeAppliances.setOnClickListener {
-            val intent = Intent(activity, HomeAppliancesActivity::class.java)
+            // Add click debouncing, just like your other buttons
+            if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+                return@setOnClickListener
+            }
+            lastClickTime = SystemClock.elapsedRealtime()
+
+            // Go to AddApplianceActivity instead
+            val intent = Intent(activity, AppliancesActivity::class.java)
             startActivity(intent)
         }
 

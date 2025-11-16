@@ -43,4 +43,15 @@
         <item>km/kWh</item>
         <item>km/kg</item>
     </string-array>
+
+    <string-array name="appliance_types">
+        <item>Refrigerator</item>
+        <item>Television</item>
+        <item>Air Conditioner</item>
+        <item>Washing Machine</item>
+        <item>Microwave</item>
+        <item>Fan</item>
+        <item>Light Bulb (LED)</item>
+        <item>Wi-Fi Router</item>
+    </string-array>
 </resources>

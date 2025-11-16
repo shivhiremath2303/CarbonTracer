@@ -78,6 +78,13 @@
             android:name=".VehicleInfoActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".AppliancesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ElectricityActivity"
+            android:exported="false" />
+
         <!-- UCrop Activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
