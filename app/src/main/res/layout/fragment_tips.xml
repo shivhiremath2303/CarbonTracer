@@ -1,118 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    tools:context=".TipsFragment">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        tools:context=".TipsFragment">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Calculate Your Footprint"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall" />
+            android:text="Predict Your Monthly Emissions"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <!-- Home & Travel Card -->
-        <com.google.android.material.card.MaterialCardView
+        <Spinner
+            android:id="@+id/spinner_year"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:entries="@array/years" /> <Spinner
+        android:id="@+id/spinner_month"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:entries="@array/months" /> <EditText
+        android:id="@+id/edit_electricity"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:hint="Electricity (kWh total)"
+        android:inputType="numberDecimal" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+        <EditText
+            android:id="@+id/edit_lpg"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:hint="LPG (kg)"
+            android:inputType="numberDecimal" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home &amp; Travel"
-                    android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+        <EditText
+            android:id="@+id/edit_petrol"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:hint="Petrol (liters)"
+            android:inputType="numberDecimal" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="Monthly Electricity (kWh)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_electricity"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="Monthly Vehicle Travel (km)">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_vehicle_travel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="numberDecimal" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        <EditText
+            android:id="@+id/edit_diesel"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:hint="Diesel (liters)"
+            android:inputType="numberDecimal" />
 
         <Button
-            android:id="@+id/btn_calculate"
+            android:id="@+id/button_predict"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Calculate My Footprint" />
+            android:text="Predict Emissions" />
 
-        <!-- Result Section -->
-        <LinearLayout
-            android:id="@+id/layout_result"
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_marginTop="24dp"
+            android:text="Prediction Results"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_prediction_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                tools:text="2.5 tonnes CO2e" />
+        <TextView
+            android:id="@+id/text_current_prediction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Predicted Emission for..."
+            android:textSize="16sp"
+            tools:text="Predicted Emission for April 2024: 150.75 kg CO2" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Your Estimated Annual Footprint"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="6-Month Forecast"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Personalized Tips"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
-
-            <TextView
-                android:id="@+id/tv_tips"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                tools:text="• Try a meatless day each week.\n• Opt for public transport when possible." />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/text_forecast_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="16sp"
+            tools:text="May 2024: 145.50 kg CO2\nJune 2024: 148.20 kg CO2" />
 
     </LinearLayout>
 </ScrollView>
