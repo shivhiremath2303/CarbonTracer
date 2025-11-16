@@ -75,6 +75,10 @@ dependencies {
     // Image Cropper
     implementation("com.github.yalantis:ucrop:2.2.11-native") // Check for the latest version
 
+    // TensorFlow Lite for ML model inference
+    implementation("org.tensorflow:tensorflow-lite:2.9.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.0")
+
     // Testing Libraries
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

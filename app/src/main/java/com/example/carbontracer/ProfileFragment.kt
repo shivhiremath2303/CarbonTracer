@@ -15,7 +15,9 @@ import com.google.firebase.auth.FirebaseUser
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
-import com.example.carbontracer.AppliancesActivity
+import com.example.carbontracer.HomeAppliancesActivity
+import com.example.carbontracer.VehiclesActivity
+import com.example.carbontracer.FeedbackFragment
 
 class ProfileFragment : Fragment() {
 
@@ -91,9 +93,8 @@ class ProfileFragment : Fragment() {
             }
             lastClickTime = SystemClock.elapsedRealtime()
 
-            // Navigate to FeedbackFragment
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, FeedbackFragment()) // Assuming your container ID is fragment_container
+                .replace(R.id.fragment_container, FeedbackFragment())
                 .addToBackStack(null)
                 .commit()
         }
@@ -115,8 +116,8 @@ class ProfileFragment : Fragment() {
             }
             lastClickTime = SystemClock.elapsedRealtime()
 
-            // Go to AddApplianceActivity instead
-            val intent = Intent(activity, AppliancesActivity::class.java)
+            // Go to HomeAppliancesActivity instead
+            val intent = Intent(activity, HomeAppliancesActivity::class.java)
             startActivity(intent)
         }
 
@@ -127,8 +128,8 @@ class ProfileFragment : Fragment() {
             }
             lastClickTime = SystemClock.elapsedRealtime()
 
-            // Start the VehicleInfoActivity
-            val intent = Intent(activity, VehicleInfoActivity::class.java)
+            // Start the VehiclesActivity
+            val intent = Intent(activity, VehiclesActivity::class.java)
             startActivity(intent)
         }
 

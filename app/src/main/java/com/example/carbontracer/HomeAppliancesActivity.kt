@@ -1,18 +1,19 @@
 package com.example.carbontracer
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.carbontracer.adapter.ApplianceAdapter // You will need to create this
-import com.example.carbontracer.model.Appliance // You will need to create this
+import com.example.carbontracer.adapter.ApplianceAdapter
+import com.example.carbontracer.model.Appliance
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
@@ -27,49 +28,33 @@ class HomeAppliancesActivity : AppCompatActivity() {
 
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-    private val applianceList = mutableListOf<Appliance>()
-
-    // Your database of default wattages
-    private val applianceWattageMap = mapOf(
-        "Refrigerator" to 200,
-        "LED TV" to 80,
-        "Air Conditioner" to 1500,
-        "Ceiling Fan" to 75,
-        "Laptop" to 60,
-        "Light Bulb (LED)" to 10,
-        "Washing Machine" to 500,
-        "Microwave Oven" to 1000,
-        "Water Heater (Geyser)" to 2000
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_appliances)
 
-        // Setup Toolbar
         val toolbar: androidx.appcompat.widget.Toolbar = findViewById(R.id.toolbarHomeAppliances)
         setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true) // Show back arrow
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        // Init Views
         rvAppliances = findViewById(R.id.rvAppliances)
         fabAddAppliance = findViewById(R.id.fabAddAppliance)
         tvNoAppliances = findViewById(R.id.tvNoAppliances)
 
-        // Setup RecyclerView
         setupRecyclerView()
-
-        // Load data from Firestore
         loadAppliances()
 
-        // Set Listeners
         fabAddAppliance.setOnClickListener {
             showAddApplianceDialog()
         }
     }
 
     private fun setupRecyclerView() {
-        applianceAdapter = ApplianceAdapter(applianceList)
+        applianceAdapter = ApplianceAdapter(emptyList(), {
+            showEditApplianceDialog(it)
+        }, {
+            showDeleteConfirmationDialog(it)
+        })
         rvAppliances.layoutManager = LinearLayoutManager(this)
         rvAppliances.adapter = applianceAdapter
     }
@@ -77,8 +62,7 @@ class HomeAppliancesActivity : AppCompatActivity() {
     private fun loadAppliances() {
         val userId = auth.currentUser?.uid ?: return
 
-        db.collection("user_appliances")
-            .whereEqualTo("userId", userId)
+        db.collection("users").document(userId).collection("appliances")
             .addSnapshotListener { snapshots, e ->
                 if (e != null) {
                     Toast.makeText(this, "Error loading appliances", Toast.LENGTH_SHORT).show()
@@ -86,11 +70,9 @@ class HomeAppliancesActivity : AppCompatActivity() {
                 }
 
                 if (snapshots != null) {
-                    applianceList.clear()
-                    applianceList.addAll(snapshots.toObjects(Appliance::class.java))
-                    applianceAdapter.updateList(applianceList)
-
-                    tvNoAppliances.visibility = if (applianceList.isEmpty()) TextView.VISIBLE else TextView.GONE
+                    val updatedList = snapshots.toObjects(Appliance::class.java)
+                    applianceAdapter.updateList(updatedList)
+                    tvNoAppliances.visibility = if (updatedList.isEmpty()) View.VISIBLE else View.GONE
                 }
             }
     }
@@ -100,10 +82,11 @@ class HomeAppliancesActivity : AppCompatActivity() {
 
         val spinnerApplianceName = dialogView.findViewById<Spinner>(R.id.spinnerApplianceName)
         val etApplianceCount = dialogView.findViewById<EditText>(R.id.etApplianceCount)
+        val etWattage = dialogView.findViewById<EditText>(R.id.etWattage)
         val etDailyHours = dialogView.findViewById<EditText>(R.id.etDailyHours)
+        val etDiesel = dialogView.findViewById<EditText>(R.id.etDiesel)
 
-        // Setup appliance name spinner
-        val applianceNames = applianceWattageMap.keys.toTypedArray()
+        val applianceNames = arrayOf("Refrigerator", "LED TV", "Air Conditioner", "Ceiling Fan", "Laptop", "Light Bulb (LED)", "Washing Machine", "Microwave Oven", "Water Heater (Geyser)", "Diesel Generator")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, applianceNames)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerApplianceName.adapter = adapter
@@ -114,36 +97,109 @@ class HomeAppliancesActivity : AppCompatActivity() {
             .setNegativeButton("Cancel", null)
             .setPositiveButton("Add") { dialog, _ ->
                 val name = spinnerApplianceName.selectedItem.toString()
-                val count = etApplianceCount.text.toString().toIntOrNull() ?: 1
+                val count = etApplianceCount.text.toString().toIntOrNull() ?: 0
+                val wattage = etWattage.text.toString().toIntOrNull() ?: 0
                 val hours = etDailyHours.text.toString().toDoubleOrNull() ?: 0.0
+                val diesel = etDiesel.text.toString().toDoubleOrNull() ?: 0.0
 
-                if (hours > 0) {
-                    saveApplianceToFirestore(name, count, hours)
+                if (count > 0 && (wattage >= 0 || diesel >= 0)) {
+                    saveApplianceToFirestore(null, name, count, wattage, hours, diesel)
                 } else {
-                    Toast.makeText(this, "Please enter valid hours", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
                 }
             }
             .show()
     }
 
-    private fun saveApplianceToFirestore(name: String, count: Int, hours: Double) {
+    private fun showEditApplianceDialog(appliance: Appliance) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_add_appliance, null)
+
+        val spinnerApplianceName = dialogView.findViewById<Spinner>(R.id.spinnerApplianceName)
+        val etApplianceCount = dialogView.findViewById<EditText>(R.id.etApplianceCount)
+        val etWattage = dialogView.findViewById<EditText>(R.id.etWattage)
+        val etDailyHours = dialogView.findViewById<EditText>(R.id.etDailyHours)
+        val etDiesel = dialogView.findViewById<EditText>(R.id.etDiesel)
+
+        val applianceNames = arrayOf("Refrigerator", "LED TV", "Air Conditioner", "Ceiling Fan", "Laptop", "Light Bulb (LED)", "Washing Machine", "Microwave Oven", "Water Heater (Geyser)", "Diesel Generator")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, applianceNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerApplianceName.adapter = adapter
+
+        spinnerApplianceName.setSelection(adapter.getPosition(appliance.applianceName))
+        etApplianceCount.setText(appliance.applianceCount.toString())
+        etWattage.setText(appliance.wattageUsed.toString())
+        etDailyHours.setText(appliance.dailyHoursUsed.toString())
+        etDiesel.setText(appliance.dieselLiters.toString())
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Edit Appliance")
+            .setView(dialogView)
+            .setNegativeButton("Cancel", null)
+            .setPositiveButton("Save") { dialog, _ ->
+                val name = spinnerApplianceName.selectedItem.toString()
+                val count = etApplianceCount.text.toString().toIntOrNull() ?: 0
+                val wattage = etWattage.text.toString().toIntOrNull() ?: 0
+                val hours = etDailyHours.text.toString().toDoubleOrNull() ?: 0.0
+                val diesel = etDiesel.text.toString().toDoubleOrNull() ?: 0.0
+
+                if (count > 0 && (wattage >= 0 || diesel >= 0)) {
+                    saveApplianceToFirestore(appliance.id, name, count, wattage, hours, diesel)
+                } else {
+                    Toast.makeText(this, "Please fill all fields correctly", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .show()
+    }
+
+    private fun showDeleteConfirmationDialog(appliance: Appliance) {
+        AlertDialog.Builder(this)
+            .setTitle("Delete Appliance")
+            .setMessage("Are you sure you want to delete this appliance?")
+            .setPositiveButton("Delete") { _, _ -> deleteAppliance(appliance) }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun saveApplianceToFirestore(id: String?, name: String, count: Int, wattage: Int, hours: Double, diesel: Double) {
         val userId = auth.currentUser?.uid ?: return
 
-        // Get the wattage from your map
-        val wattage = applianceWattageMap[name] ?: 0
-
         val appliance = Appliance(
+            id = id ?: "",
             userId = userId,
             applianceName = name,
             applianceCount = count,
             wattageUsed = wattage,
-            dailyHoursUsed = hours
+            dailyHoursUsed = hours,
+            dieselLiters = diesel
         )
 
-        db.collection("user_appliances")
-            .add(appliance)
+        val collection = db.collection("users").document(userId).collection("appliances")
+
+        if (id == null) {
+            collection.add(appliance)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Appliance added", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            collection.document(id).set(appliance)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Appliance updated", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
+    private fun deleteAppliance(appliance: Appliance) {
+        val userId = auth.currentUser?.uid ?: return
+        db.collection("users").document(userId).collection("appliances").document(appliance.id)
+            .delete()
             .addOnSuccessListener {
-                Toast.makeText(this, "Appliance added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Appliance deleted", Toast.LENGTH_SHORT).show()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()

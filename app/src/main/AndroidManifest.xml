@@ -75,7 +75,7 @@
             android:name=".HomeAppliancesActivity"
             android:exported="false" />
         <activity
-            android:name=".VehicleInfoActivity"
+            android:name=".VehiclesActivity"
             android:exported="false" />
 
         <activity

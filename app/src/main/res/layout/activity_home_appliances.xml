@@ -30,17 +30,19 @@
         android:id="@+id/tvNoAppliances"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No appliances added yet."
+        android:text="No appliances added yet.\nClick '+' to add one."
         android:gravity="center"
         android:visibility="gone"
         android:layout_gravity="center"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
         tools:visibility="visible"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddAppliance"
-        androidLlayout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:contentDescription="Add Appliance"
-        app:srcCompat="@drawable/ic_add" /> </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        app:srcCompat="@drawable/ic_add" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

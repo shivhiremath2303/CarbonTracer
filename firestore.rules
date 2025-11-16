@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+    // This rule is also good to have for your user profiles
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // It allows a user to write to their own 'vehicles' subcollection
+    match /users/{userId}/vehicles/{vehicleId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Users can only read and write their own emissions data
+    match /emissions/{emissionId} {
+      allow read, write: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    }
+    
+    // Badge data can only be read and written by the owner
+    match /user_badges/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

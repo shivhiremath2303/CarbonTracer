@@ -28,7 +28,7 @@ class FeedbackFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_feedback, container, false)
 
         etFeedbackTitle = view.findViewById(R.id.etFeedbackTitle)
-        etFeedbackMessage = view.findViewById(R.id.etFeedbackMessage)
+        etFeedbackMessage = view.findViewById(R.id.etFeedbackMessageInput)
         btnSubmitFeedback = view.findViewById(R.id.btnSubmitFeedback)
         pbFeedbackLoading = view.findViewById(R.id.pbFeedbackLoading)
 

@@ -1,6 +1,5 @@
 package com.example.carbontracer.model
 
-
 import com.google.firebase.firestore.DocumentId
 
 data class Appliance(
@@ -9,6 +8,9 @@ data class Appliance(
     val userId: String = "",
     val applianceName: String = "",
     val applianceCount: Int = 1,
-    val wattageUsed: Int = 0, // From your internal map
-    val dailyHoursUsed: Double = 0.0 // From user
+    // Electricity
+    val wattageUsed: Int = 0,
+    val dailyHoursUsed: Double = 0.0,
+    // Other Fuels (monthly consumption)
+    val dieselLiters: Double = 0.0
 )
