@@ -6,15 +6,18 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/tvApplianceName"
+        android:id="@+id/text_appliance_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:text="Appliance Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/tvApplianceModel"
+        android:id="@+id/text_appliance_usage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:text="Usage: 4 hours per day"
+        android:textSize="14sp" />
 
 </LinearLayout>
