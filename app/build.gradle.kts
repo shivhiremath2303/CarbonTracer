@@ -76,8 +76,9 @@ dependencies {
     implementation("com.github.yalantis:ucrop:2.2.11-native") // Check for the latest version
 
     // TensorFlow Lite for ML model inference
-    implementation("org.tensorflow:tensorflow-lite:2.9.0")
-    implementation("org.tensorflow:tensorflow-lite-support:0.4.0")
+    implementation("org.tensorflow:tensorflow-lite:2.17.0")
+    implementation("org.tensorflow:tensorflow-lite-support:0.5.0")
+    implementation("org.tensorflow:tensorflow-lite-metadata:0.5.0")
 
     // Testing Libraries
     testImplementation(libs.junit)
@@ -95,7 +96,5 @@ dependencies {
     ksp("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
-    implementation("org.tensorflow:tensorflow-lite:2.15.0")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
-    implementation("org.tensorflow:tensorflow-lite:2.15.0")
 }
