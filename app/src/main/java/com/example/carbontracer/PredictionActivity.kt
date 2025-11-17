@@ -51,7 +51,7 @@ class PredictionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_prediction)
 
         try {
-            tflite_current = Interpreter(loadModelFile("xgboost_model.tflite"))
+            tflite_current = Interpreter(loadModelFile("lstm_model.tflite"))
         } catch (ex: Exception) {
             Toast.makeText(this, "Error loading model: ${ex.message}", Toast.LENGTH_LONG).show()
             finish() // Can't proceed if model fails
