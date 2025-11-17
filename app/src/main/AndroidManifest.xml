@@ -78,7 +78,7 @@
             android:name=".VehiclesActivity"
             android:exported="false" />
         <activity
-            android:name=".PredictionActivity"
+            android:name=".ic_tips"
             android:exported="false" />
 
         <!-- UCrop Activity -->

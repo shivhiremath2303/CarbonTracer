@@ -1,73 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- New Seed Color for a Blue Theme -->
-    <color name="seed">#42a5f5</color>
-
-    <!-- Light Blue Primary Theme -->
-    <color name="md_theme_light_primary">#006496</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <color name="md_theme_light_primary">#006874</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primaryContainer">#CBE6FF</color>
-    <color name="md_theme_light_onPrimaryContainer">#001E31</color>
-
-    <!-- Light Magenta Secondary Theme -->
-    <color name="md_theme_light_secondary">#EC407A</color>
+    <color name="md_theme_light_primaryContainer">#97F0FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#001F24</color>
+    <color name="md_theme_light_secondary">#4A6267</color>
     <color name="md_theme_light_onSecondary">#FFFFFF</color>
-    <color name="md_theme_light_secondaryContainer">#FFD9E2</color>
-    <color name="md_theme_light_onSecondaryContainer">#3E001D</color>
-
-    <!-- Unchanged Tertiary Colors -->
-    <color name="md_theme_light_tertiary">#38656A</color>
+    <color name="md_theme_light_secondaryContainer">#CDE7EC</color>
+    <color name="md_theme_light_onSecondaryContainer">#051F23</color>
+    <color name="md_theme_light_tertiary">#525E7D</color>
     <color name="md_theme_light_onTertiary">#FFFFFF</color>
-    <color name="md_theme_light_tertiaryContainer">#BCEBF0</color>
-    <color name="md_theme_light_onTertiaryContainer">#002022</color>
-
-    <!-- Error colors -->
+    <color name="md_theme_light_tertiaryContainer">#D9E2FF</color>
+    <color name="md_theme_light_onTertiaryContainer">#0E1B37</color>
     <color name="md_theme_light_error">#BA1A1A</color>
     <color name="md_theme_light_onError">#FFFFFF</color>
     <color name="md_theme_light_errorContainer">#FFDAD6</color>
     <color name="md_theme_light_onErrorContainer">#410002</color>
-
-    <!-- Background/Surface Colors updated to support gradient -->
-    <color name="background_gradient_start">#CBE6FF</color>
-    <color name="background_gradient_end">#A0D2F0</color>
-    <color name="md_theme_light_background">@color/background_gradient_start</color>
-    <color name="md_theme_light_onBackground">#001E31</color>
-    <color name="md_theme_light_surface">@color/background_gradient_start</color>
-    <color name="md_theme_light_onSurface">#000000</color>
-
-    <color name="md_theme_light_surfaceVariant">#DEE5D9</color>
-    <color name="md_theme_light_onSurfaceVariant">#000000</color>
-    <color name="md_theme_light_outline">#72796F</color>
-    <color name="md_theme_light_inverseOnSurface">#F0F1EB</color>
-    <color name="md_theme_light_inverseSurface">#2F312D</color>
-    <color name="md_theme_light_inversePrimary">#92CCFF</color>
+    <color name="md_theme_light_background">#FBFCFD</color>
+    <color name="md_theme_light_onBackground">#191C1D</color>
+    <color name="md_theme_light_surface">#FBFCFD</color>
+    <color name="md_theme_light_onSurface">#191C1D</color>
+    <color name="md_theme_light_surfaceVariant">#DBE4E6</color>
+    <color name="md_theme_light_onSurfaceVariant">#3F484A</color>
+    <color name="md_theme_light_outline">#6F797B</color>
+    <color name="md_theme_light_inverseOnSurface">#EFF1F1</color>
+    <color name="md_theme_light_inverseSurface">#2E3132</color>
+    <color name="md_theme_light_inversePrimary">#4FD8EB</color>
     <color name="md_theme_light_shadow">#000000</color>
-    <color name="md_theme_light_surfaceTint">#006496</color>
-    <color name="md_theme_light_outlineVariant">#C2C9BE</color>
+    <color name="md_theme_light_surfaceTint">#006874</color>
+    <color name="md_theme_light_outlineVariant">#BFC8CA</color>
     <color name="md_theme_light_scrim">#000000</color>
 
-    <!-- General Colors -->
-    <color name="white">#FFFFFF</color>
-    <color name="gray">#808080</color>
-    <color name="dark_gray">#A9A9A9</color>
-    <color name="divider_color">#1F000000</color>
-
-    <!-- Button Gradient updated to Blue -->
-    <color name="button_gradient_start">#006496</color>
-    <color name="button_gradient_end">#004B72</color>
-    <color name="button_gradient_start_dark">#92CCFF</color>
-    <color name="button_gradient_end_dark">#004B72</color>
-    <color name="gradient_start_color">#006496</color>
-    <color name="gradient_end_color">#004B72</color>
-
-    <!-- Original colors for specific use if needed -->
+    <color name="background_gradient_end">#B2DFDB</color>
+    <color name="background_gradient_start">#E0F2F1</color>
+    <color name="button_gradient_end_dark">#004D40</color>
+    <color name="button_gradient_start_dark">#00796B</color>
+    <color name="gradient_end_color">#00796B</color>
+    <color name="gradient_start_color">#80CBC4</color>
     <color name="green">#4CAF50</color>
-    <color name="yellow">#FFEB3B</color>
     <color name="red">#F44336</color>
-
-    <array name="progress_colors">
-        <item>@color/green</item>
-        <item>@color/yellow</item>
-        <item>@color/red</item>
-    </array>
 </resources>

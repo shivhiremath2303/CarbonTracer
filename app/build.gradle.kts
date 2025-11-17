@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("org.tensorflow:tensorflow-lite:2.13.0")
+    implementation("org.tensorflow:tensorflow-lite-select-tf-ops:2.13.0")
 
     
     // Firebase Bill of Materials (BoM) - Declared once

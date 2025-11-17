@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,22 +41,6 @@ class ElectricityActivity : AppCompatActivity() {
     private lateinit var addApplianceButton: FloatingActionButton
     private lateinit var applianceRecyclerView: RecyclerView
     private lateinit var applianceAdapter: ApplianceAdapter
-
-    private val predictionResultLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val prediction = result.data?.getFloatExtra("predictionResult", 0.0f) ?: 0.0f
-            if (prediction > 0.0f) {
-                textTotalFootprint.text = "%.1f kg CO2/month".format(prediction)
-                
-                // Handle Streak Logic
-                handleStreakUpdate()
-                // Refresh gamification UI to show new streak
-                updateGamificationUI(applianceAdapter.itemCount)
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,8 +79,8 @@ class ElectricityActivity : AppCompatActivity() {
         applianceRecyclerView.adapter = applianceAdapter
 
         addApplianceButton.setOnClickListener {
-            val intent = Intent(this, PredictionActivity::class.java)
-            predictionResultLauncher.launch(intent)
+            val intent = Intent(this, ic_tips::class.java)
+            startActivity(intent)
         }
     }
 
