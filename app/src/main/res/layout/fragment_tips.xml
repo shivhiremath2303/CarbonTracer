@@ -19,25 +19,30 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/spinner_year"
+        <!-- Year: user types it manually -->
+        <EditText
+            android:id="@+id/edit_year"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:entries="@array/years" />
+            android:hint="Year (e.g. 2025)"
+            android:inputType="number" />
 
+        <!-- Month dropdown -->
         <Spinner
             android:id="@+id/spinner_month"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="8dp"
-            android:entries="@array/months_array" /> <EditText
-        android:id="@+id/edit_electricity"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="8dp"
-        android:hint="Electricity (kWh total)"
-        android:inputType="numberDecimal" />
+            android:entries="@array/months_array" />
+
+        <EditText
+            android:id="@+id/edit_electricity"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:hint="Electricity (kWh total)"
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/edit_lpg"
@@ -100,6 +105,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="8dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -110,7 +116,7 @@
 
         <TextView
             android:id="@+id/text_suggestions"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:textSize="16sp"
